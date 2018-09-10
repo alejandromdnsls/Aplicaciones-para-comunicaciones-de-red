@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 public class Seleccion extends javax.swing.JFrame {
     File[] file;
     String buffer;
+    boolean ableAlgorithm;
     
     public Seleccion() {
         initComponents();
@@ -82,6 +83,11 @@ public class Seleccion extends javax.swing.JFrame {
 
         jCheckBox1.setText("Activar Nagle");
         jCheckBox1.setToolTipText("");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,9 +157,17 @@ public class Seleccion extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         buffer = jTextField1.getText();
-        ClienteArchivo ca = new ClienteArchivo(file, buffer);
+        ClienteArchivo ca = new ClienteArchivo(file, buffer, ableAlgorithm);
         ca.enviaArchivos();
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if(jCheckBox1.isSelected())
+            ableAlgorithm = true;       
+        else
+            ableAlgorithm = false;
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     
     /**
