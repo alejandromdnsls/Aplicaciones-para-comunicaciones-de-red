@@ -16,26 +16,35 @@ import java.io.*;
 public class ClienteArchivo {
     File[] file;
     int tam_buffer;
+    boolean ableAlgorithm;
     
-    public ClienteArchivo(File[] f, String buffer){
+    public ClienteArchivo(File[] f, String buffer, boolean able){
         this.file = f;
         this.tam_buffer = Integer.parseInt(buffer);
+        this.ableAlgorithm = able;
     }
     
     public void enviaArchivos(){
         try{
             Socket cl = new Socket("127.0.0.1", 7000);
+            if(ableAlgorithm){
+                System.out.println("Entre");
+                cl.setTcpNoDelay(true);            
+            }
             DataOutputStream dos = new DataOutputStream(cl.getOutputStream());
-            DataInputStream dis = null;
-            int i = 0;
+            DataInputStream dis = null;                        
             int num_archivos = file.length;
+            System.out.println("Número de archivos: " + num_archivos);
+            System.out.println("Tamaño de buffer: " + tam_buffer);
+            System.out.println("Algoritmo: " + ableAlgorithm);
+            dos.writeInt(tam_buffer);
             dos.writeInt(num_archivos);
             dos.flush();
             String archivo = "";
             String nombre = "";
             long tam = 0;
-            System.out.println("Núm archivos: " + file.length);
-            while(i < file.length){ 
+            int i = 0;            
+            while(i < num_archivos){ 
                 archivo = file[i].getAbsolutePath();
                 nombre = file[i].getName();
                 tam = file[i].length();
