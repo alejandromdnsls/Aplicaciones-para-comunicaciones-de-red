@@ -20,19 +20,17 @@ public class SHolaD {
             DatagramSocket s = new DatagramSocket(2000);
             System.out.println("Servidor iniciado, esperando cliente...");
             for(;;){
-                //Se crea DatagramPacket para recibir paquete de longitug 2000
-                DatagramPacket p = new DatagramPacket(new byte[2000], 2000);
-                s.receive(p);                
-                byte[] b = p.getData();
-                int tam = p.getLength();
-                InetAddress host = p.getAddress();
-                int port = p.getPort();
-                System.out.println("Datagrama recibido desde: " + host + ":" + port);                              
-                String msj = new String(b, 0, tam);
+                //Se crea DatagramPacket para recibir paquete de longitug 2000                
+                DatagramPacket p = new DatagramPacket(new byte[512], 512);               
+                s.receive(p);                               
+                System.out.println("Datagrama recibido desde: " + p.getAddress() + ":" + p.getPort());                              
+                String msj = new String(p.getData(), 0, p.getLength());
+                System.out.println(msj.length());
                 System.out.println("Con el mensaje: " + msj);
-                b = msj.getBytes();
-                p = new DatagramPacket(b, b.length, host, port);
-                s.send(p);                
+                //Se crea un DatagramPacket para hacer un response con el mismo mensaje                
+                byte[] b = msj.getBytes();
+                DatagramPacket p1 = new DatagramPacket(b, b.length, p.getAddress(), p.getPort());
+                s.send(p1);                
             }            
         }catch(Exception e){
             e.printStackTrace();
