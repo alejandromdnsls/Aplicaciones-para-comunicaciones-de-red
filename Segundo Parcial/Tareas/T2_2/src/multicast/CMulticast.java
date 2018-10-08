@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aplicacion.multicast;
+package multicast;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -19,7 +19,7 @@ public class CMulticast {
     public static void main(String[] args) {
         InetAddress gpo = null;
         try{
-            MulticastSocket cl = new MulticastSocket(6666);
+            MulticastSocket cl = new MulticastSocket(9999);
             System.out.println("Cliente escuchando puerto " + cl.getLocalPort());
             cl.setReuseAddress(true);
             try{

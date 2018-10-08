@@ -1,4 +1,4 @@
-package aplicacion.multicast;
+package multicast;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
