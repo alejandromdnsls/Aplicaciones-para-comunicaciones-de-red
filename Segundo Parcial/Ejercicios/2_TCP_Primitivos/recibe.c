@@ -62,5 +62,3 @@ int main(int agrc, char* argv[]){
     close(sd);
     return 0;
 }//main
-
-
